@@ -12,9 +12,9 @@ pipeline {
 			bat ( script : ''' mvn -f ./demo clean install''')
                 }
         }
-	 stage('Choice'){
+	 stage('Compile'){
 		steps {
-			input('Do you wish to continue?')
+			echo 'Compiling the project'
         }
 	}
 	
