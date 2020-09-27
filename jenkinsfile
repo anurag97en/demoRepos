@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    tools { 
+        maven 'Maven 3.6.3' 
+        jdk 'jdk8' 
+    }
+       stages {
+	
+        stage('Build') {
+                steps {
+                        echo 'Intial Step: Building the project'
+			bat ( script : ''' mvn -f ./demo clean install''')
+                }
+        }
+	 stage('Choice'){
+		steps {
+			input('Do you wish to continue?')
+        }
+	}
+	
+	stage('Not Running Master Branch ') {
+                when {
+                        not {
+                             branch "master"
+                        }
+                }
+                steps {
+			echo "Hello"
+                      }
+        }
+	
+	stage('Testing'){
+		steps{
+		echo 'Running the test case'
+		}
+	}
+	
+	stage('Ending'){
+	steps{
+	echo 'Ending of the pipeline'}
+	}
+} 
+}
